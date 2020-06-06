@@ -32,10 +32,8 @@ app.whenReady().then(() => {
           requestId,
           result: {
             body,
-            ...{
-              headers: response.headers,
-              status: response.statusCode,
-            },
+            headers: response.headers,
+            status: response.statusCode,
           },
         });
       });
