@@ -1,7 +1,5 @@
 const { app, net } = require('electron');
 
-app.disableHardwareAcceleration();
-
 const WebSocket = require('ws');
 
 class Socket extends WebSocket {
@@ -18,7 +16,7 @@ const parent = new Socket('ws://127.0.0.1:' + process.env.WS_PORT);
 
 app.whenReady().then(() => {
   parent.on('message', data => {
-    const { url, options } = JSON.parse(data);
+    const { url, options, requestId } = JSON.parse(data);
 
     const request = net.request({ url, ...options });
 
@@ -31,10 +29,13 @@ app.whenReady().then(() => {
 
       response.on('end', () => {
         parent.json({
-          body,
-          ...{
-            headers: response.headers,
-            status: response.statusCode,
+          requestId,
+          result: {
+            body,
+            ...{
+              headers: response.headers,
+              status: response.statusCode,
+            },
           },
         });
       });

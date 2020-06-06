@@ -1,10 +1,11 @@
 {
   "name": "electron-net",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "lib.js",
   "license": "MIT",
   "dependencies": {
     "electron": "^9.0.2",
+    "smaller-id": "^1.0.1",
     "ws": "^7.3.0"
   }
 }
